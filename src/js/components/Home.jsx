@@ -8,26 +8,28 @@ import { useState } from 'react';
 const Home = () => {
 	const trafficColors = ["green", "yellow", "red"]
 	const [trafficLight, setTrafficLight] = useState(trafficColors[0]);
+	const[indexPosition, setIndexPosition] = useState(0)
 
 	const settingTheColor = (index) => {
 		setTrafficLight(trafficColors[index])
+		setIndexPosition(index)
 		return trafficColors[index]
 	}
 
 	return (
-		<div className=" text-center justify-content-center">
-            
-
-			<h1 className="text-center mt-5">Change your traffic light!</h1>
-			<div style={{height: 200 + "px" , width: 200 + "px"}} className={"red-light" + (current = "red" ? "current-red" : "") + "rounded-circle bg-danger m-auto"} onClick={() => settingTheColor(0)} >
+		<div className=" text-center d-flex flex-column justify-content-center">
+			<h1 className="text-center mt-5 mb-5">Change your traffic light!</h1>
+			<div className="trafficBox d-flex flex-column align-items-around mx-auto bg-dark rounded-5">
+				<div className={"light red-light bg-danger " + (trafficLight === "red" ? "current-red" : "") + " rounded-circle m-auto"} onClick={() => settingTheColor(2)} >
+				</div>
+				<div className={"light yellow-light bg-warning " + (trafficLight === "yellow" ? "current-yellow" : "") + " rounded-circle m-auto"} onClick={() => settingTheColor(1)} >
+				</div>
+				<div className={"light green-light bg-success " + (trafficLight === "green" ? "current-green" : "") + " rounded-circle m-auto"} onClick={() => settingTheColor(0)}>
+				</div>
 			</div>
-			<div style={{height: 200 + "px" , width: 200 + "px"}} className={"yellow-light" + (current = "yellow" ? "current-yellow" : "") + "rounded-circle bg-warning m-auto"} onClick={() => settingTheColor(1)} >
-			</div>
-			<div style={{height: 200 + "px" , width: 200 + "px"}} className={"green-light" + (current = "green" ? "current-green" : "") + "rounded-circle bg-success m-auto"} onClick={() => settingTheColor(2)}>
-			</div>
-			{/* add box shadow in CSS and tie those to the colors i input into the classnames */}
-			<p>
-				Made with love by JBeanCode
+			<button type="button" className="changeButton btn btn-info mt-4 m-auto" onClick={() => settingTheColor((indexPosition === 2 ? 0 : indexPosition+1))}>Change Light</button>
+			<p className="mt-5">
+				Made with <strong className="text-danger">love</strong> by JBeanCode
 			</p>
 		</div>
 	);
